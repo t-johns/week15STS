@@ -26,7 +26,7 @@ import com.promineotech.jeep.entity.JeepModel;
 
 		config = @SqlConfig(encoding = "utf-8"))
 
-class FetchJeepTest extends FetchJeepTestSupport {
+class FetchJeepTest extends FetchJeepTestSupport { // Fetches Jeep Test
 
 	@Test
 	void testThatJeepsAreReturnedWhenAValidModelAndTrimAreSupplied() {
@@ -39,7 +39,7 @@ class FetchJeepTest extends FetchJeepTestSupport {
 		
 		// When: a connection is made to the URI
 		ResponseEntity<Jeep> response = // returning Jeep entity
-				getRestTemplate().getForEntity(uri, Jeep.class); // inject test rest template
+				getRestTemplate().getForEntity(uri, Jeep.class); // inject test rest template for uri/Jeep class
 		
 		// Then: a success (OK - 200) status code is returned
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK); // assert check
