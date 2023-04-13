@@ -59,7 +59,7 @@ public interface JeepSalesController { // Manage requests to /jeeps uri
 				description = "The trim level (i.e., 'Sport')")
 		}
 	) 
-	@GetMapping // assign to fetchJeeps method
+	@GetMapping // assign to fetchJeeps method, method call
 	@ResponseStatus(code = HttpStatus.OK) // return OK if success
 	List<Jeep> fetchJeeps(
 			@RequestParam(required = false) // spring mapping
