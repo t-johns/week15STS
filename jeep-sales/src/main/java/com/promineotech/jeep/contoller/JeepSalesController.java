@@ -2,13 +2,19 @@ package com.promineotech.jeep.contoller;
 
 import java.util.List;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.promineotech.jeep.Constants;
 import com.promineotech.jeep.entity.Jeep;
+import com.promineotech.jeep.entity.JeepModel;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,11 +25,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 
+@Validated
 @RequestMapping("/jeeps") // assign requests at portNum with '/jeeps' to controller
 @OpenAPIDefinition(info = @Info(title = "Jeep Sales Service"), servers = {
 		@Server(url = "http://localhost:8080", description = "Local server.")})
 
 public interface JeepSalesController { // Manage requests to /jeeps uri
+	
+
 	// @formatter:off
 	@Operation(
 		summary = "Returns a list of Jeeps",
@@ -63,7 +72,9 @@ public interface JeepSalesController { // Manage requests to /jeeps uri
 	@ResponseStatus(code = HttpStatus.OK) // return OK if success
 	List<Jeep> fetchJeeps(
 			@RequestParam(required = false) // spring mapping
-				String model,
+				JeepModel model,
+			@Length(max = Constants.TRIM_MAX_LENGTH)
+			@Pattern(regexp = "[\\w\\s]*") // word character, space character  
 			@RequestParam(required = false) 
 				String trim);
 	// @formatter:on
